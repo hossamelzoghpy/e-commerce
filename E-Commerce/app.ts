@@ -1,12 +1,14 @@
-import express from "express";
-//const express = require('express')
+import express from 'express'
+import dotenv from 'dotenv'
+import dbConnection from './config/db'
+import categoriesRoute from './routes/categoriesRoute'
+import subCategoriesRoute from './routes/subCategories'
 const app: express.Application = express()
-const port = 3000
-
-app.get('/', (req:express.Request, res:express.Response) => {
-  res.send('Hello Everybody!')
-})
-
-app.listen(port, () => {
-  console.log(`App listening on port ${port}`)
+app.use(express.json())
+dotenv.config()
+dbConnection()
+app.use('/api/v1/categories',categoriesRoute)
+app.use('/api/v1/subcategories',subCategoriesRoute)
+app.listen(process.env.PORT, () => {
+  console.log(`App listening on port ${process.env.PORT}`)
 })
