@@ -1,12 +1,23 @@
-import express from "express";
-//const express = require('express')
+
+import express from 'express'
+import dotenv from 'dotenv'
+import dbConnection from './config/db'
+import mountRoutes from './routes'
+import { Server } from 'http'
 const app: express.Application = express()
-const port = 3000
-
-app.get('/', (req:express.Request, res:express.Response) => {
-  res.send('Hello Everybody!')
+app.use(express.json())
+dotenv.config()
+dbConnection()
+mountRoutes(app)
+let server:Server
+server=app.listen(process.env.PORT, () => {
+  console.log(`App listening on port ${process.env.PORT}`)
 })
+process.on('unhandledRejection',(error:Error)=>{
+  console.error(`unhandlesRejection Error: ${error.name} | ${error.message}`)
+  server.close(()=>{
+    console.error('Application is shutting down...')
+    process.exit(1)
+  })
 
-app.listen(port, () => {
-  console.log(`App listening on port ${port}`)
 })
