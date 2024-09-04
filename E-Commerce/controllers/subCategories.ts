@@ -1,25 +1,18 @@
-import { NextFunction,Request,Response } from 'express'
-import asyncHandler from 'express-async-handler'
-import { SubCategories } from '../interfaces/subCategories'
-import subCategoriesModel from '../models/categoriesModel'
-export const getAllSubCategories=asyncHandler(async(req:Request,res:Response,next:NextFunction)=>{
-    const subCategories:SubCategories[]=await subCategoriesModel.find()
-    res.status(200).json({data:subCategories})
-
-});
-export const createSubCategory=asyncHandler(async(req:Request,res:Response,next:NextFunction)=>{
-    const subCategory= await subCategoriesModel.create(req.body)
-    res.status(201).json({data:subCategory})
-})
-export const getSubCategory=asyncHandler(async(req:Request,res:Response,next:NextFunction)=>{
-    const subCategory:SubCategories | null = await subCategoriesModel.findById(req.params.id)
-    res.status(200).json({data:subCategory})
-})
-export const updateSubCategory=asyncHandler(async(req:Request,res:Response,next:NextFunction)=>{
-    const subCategory:SubCategories | null = await subCategoriesModel.findByIdAndUpdate(req.params.id,req.body,{new:true})
-    res.status(200).json({data:subCategory})
-})
-export const deleteSubCategory=asyncHandler(async(req:Request,res:Response,next:NextFunction)=>{
-    const subCategory:SubCategories | null = await subCategoriesModel.findByIdAndDelete(req.params.id)
-    res.status(204).json()//204 no content
-})
+import { NextFunction, Request } from 'express'
+import { Subcategories } from '../interfaces/subcategories'
+import subcategoriesModel from '../models/subcategoriesModel'
+import { createOne, deleteOne, getAll, getOne, updateOne } from './refactorHandling'
+import { FilterData } from '../interfaces/filterData'
+export const filterSubcategories = (req: Request, res: Response, next: NextFunction) => {
+   let filterData: FilterData = {};
+   if (req.params.categoryId) {
+        filterData.category = req.params.categoryId;
+   }
+   req.filterData = filterData;
+   next();
+}
+export const getAllSubcategories=getAll<Subcategories>(subcategoriesModel,'subcategories')
+export const createSubcategory=createOne<Subcategories>(subcategoriesModel)
+export const getSubcategory=getOne<Subcategories>(subcategoriesModel)
+export const updateSubcategory=updateOne<Subcategories>(subcategoriesModel)
+export const deleteSubcategory=deleteOne<Subcategories>(subcategoriesModel)
