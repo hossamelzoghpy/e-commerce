@@ -1,5 +1,3 @@
-
-//export default model<SubCategories>('subcategories',subCategoriesSchema)
 import { Schema, model } from 'mongoose';
 import { Subcategories } from '../interfaces/subcategories';
 
