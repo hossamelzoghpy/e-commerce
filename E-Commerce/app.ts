@@ -6,6 +6,7 @@ import mountRoutes from './routes'
 import { Server } from 'http'
 const app: express.Application = express()
 app.use(express.json())
+app.use(express.static('uploads'))
 dotenv.config()
 dbConnection()
 mountRoutes(app)
