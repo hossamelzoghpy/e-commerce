@@ -16,14 +16,15 @@ export const createProductValidator: RequestHandler[] = [
     }),
     check('description').notEmpty().withMessage("Description required")
     .isLength({min:0,max:500}).withMessage("product length must be between 2 and 500"),
-    check('quantity').isNumeric().withMessage("product quantity must be number").toInt()
+    check('quantity').optional()
+    .isNumeric().withMessage("product quantity must be number").toInt()
     .custom((val:number)=>{
         if(val<0){
             throw new Error("quantity must be grater than zero")
         }
         return true;
     }),
-    check("price").isEmpty().withMessage("Price required")
+    check("price").notEmpty().withMessage("Price required")
     .isNumeric().withMessage("product quantity must be number").toFloat()
     .custom((val:number)=>{
         if(val<0){
