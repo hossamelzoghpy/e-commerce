@@ -7,7 +7,7 @@ import { createToken } from "../utils/createToken";
 import { Users } from "../interfaces/users";
 
 export const login=asyncHandler(async (req:Request,res:Response,next:NextFunction)=>{
-    const user=await usersModel.findOne(req.body.email)
+    const user=await usersModel.findOne({ email: req.body.email })
     if(!user || !(await bcrypt.compare(req.body.password,user.password))){
         return next(new ApiErrors('Invalid email or password',401))
     }
