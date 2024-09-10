@@ -6,11 +6,15 @@ import globalErrors from '../middlewares/globalErrors';
 import { NextFunction, Request, Response } from "express";
 import ApiErrors from '../utils/apiErrors';
 import productsRoute from './productsRoute';
+import usersRoute from './usersRoute';
+import authenRoute from './authenRoute';
 
 const mountRoutes=(app:Application)=>{
     app.use('/api/v1/categories',categoriesRoute)
     app.use('/api/v1/subcategories',subcategoriesRoute)
     app.use('/api/v1/products',productsRoute)
+    app.use('/api/v1/users',usersRoute)
+    app.use('/api/v1/authen',authenRoute)
     app.all('*',(req:Request,res:Response,next:NextFunction)=>{
            return next(new ApiErrors(`the route of ${req.originalUrl} not found`,400))
     })
