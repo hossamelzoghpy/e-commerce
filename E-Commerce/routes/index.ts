@@ -16,7 +16,7 @@ const mountRoutes=(app:Application)=>{
     app.use('/api/v1/users',usersRoute)
     app.use('/api/v1/authen',authenRoute)
     app.all('*',(req:Request,res:Response,next:NextFunction)=>{
-           return next(new ApiErrors(`the route of ${req.originalUrl} not found`,400))
+        return next(new ApiErrors(`the route of ${req.originalUrl} not found`,400))
     })
     app.use(globalErrors)
 }

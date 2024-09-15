@@ -44,7 +44,7 @@ export const loginValidator: RequestHandler[] = [
     validatorMiddleware
 ];
 
-/*export const forgetPasswordValidator: RequestHandler[] = [
+export const forgetPasswordValidator: RequestHandler[] = [
   check('email')
     .notEmpty().withMessage('Email is Required')
     .isEmail().withMessage('Invalid Email'),
@@ -63,4 +63,6 @@ export const resetPasswordValidator: RequestHandler[] = [
     .notEmpty().withMessage('password is required')
     .isLength({ min: 6, max: 20 }).withMessage('password length from 6 to 20 char'),
   validatorMiddleware
-];*/
+];
+
+
