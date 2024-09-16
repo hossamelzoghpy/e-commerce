@@ -8,6 +8,9 @@ import ApiErrors from '../utils/apiErrors';
 import productsRoute from './productsRoute';
 import usersRoute from './usersRoute';
 import authenRoute from './authenRoute';
+import wishlistRoute from './wishlistRoute';
+import addressRoute from './addressRoute';
+import couponsRoute from './couponsRoute';
 
 const mountRoutes=(app:Application)=>{
     app.use('/api/v1/categories',categoriesRoute)
@@ -15,6 +18,9 @@ const mountRoutes=(app:Application)=>{
     app.use('/api/v1/products',productsRoute)
     app.use('/api/v1/users',usersRoute)
     app.use('/api/v1/authen',authenRoute)
+    app.use('/api/v1/wishlist',wishlistRoute)
+    app.use('/api/v1/address',addressRoute)
+    app.use('/api/v1/coupons',couponsRoute)
     app.all('*',(req:Request,res:Response,next:NextFunction)=>{
         return next(new ApiErrors(`the route of ${req.originalUrl} not found`,400))
     })
