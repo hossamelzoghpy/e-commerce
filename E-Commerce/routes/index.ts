@@ -11,6 +11,9 @@ import authenRoute from './authenRoute';
 import wishlistRoute from './wishlistRoute';
 import addressRoute from './addressRoute';
 import couponsRoute from './couponsRoute';
+import reviewsRoute from './reviewsRoute';
+import cartRoute from './cartRoute';
+import ordersModel from '../models/ordersModel';
 
 const mountRoutes=(app:Application)=>{
     app.use('/api/v1/categories',categoriesRoute)
@@ -21,6 +24,9 @@ const mountRoutes=(app:Application)=>{
     app.use('/api/v1/wishlist',wishlistRoute)
     app.use('/api/v1/address',addressRoute)
     app.use('/api/v1/coupons',couponsRoute)
+    app.use('/api/v1/reviews',reviewsRoute)
+    app.use('/api/v1/carts',cartRoute)
+    app.use('/api/v1/orders',ordersModel)
     app.all('*',(req:Request,res:Response,next:NextFunction)=>{
         return next(new ApiErrors(`the route of ${req.originalUrl} not found`,400))
     })

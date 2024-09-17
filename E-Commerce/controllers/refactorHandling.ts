@@ -5,7 +5,7 @@ import { FilterData } from "../interfaces/filterData";
 import ApiErrors from "../utils/apiErrors";
 import Features from "../utils/features";
 export const getAll = <modelType>(model: Model<any>, modelName: string) =>
-  asyncHandler(async (req: Request, res: Response, next: NextFunction) => {
+asyncHandler(async (req: Request, res: Response, next: NextFunction) => {
     let filterData:any={}
     let searchLength:number=0
     if(req.filterData){
@@ -23,14 +23,16 @@ export const getAll = <modelType>(model: Model<any>, modelName: string) =>
     const documents: modelType[] = await mongooseQuery
     res.status(200).json({length:documents.length, pagination:paginationResult,data: documents })
   });
-export const getOne=<modelType>(model:Model<any>)=>
-    asyncHandler(async(req:Request,res:Response,next:NextFunction)=>{
-        const documents:modelType|null=await model.findById(req.params.id)
-        if(!documents){return next(new ApiErrors(`Document not fount`,404))}
-        res.status(200).json({data:documents})
-        
-
-    })
+export const getOne = <modelType>(model: Model<any>, populateOptions?: string) =>
+  asyncHandler(async (req: Request, res: Response, next: NextFunction) => {
+    let query = model.findById(req.params.id);
+    if (populateOptions) {
+      query = query.populate(populateOptions);
+    }
+    const documents: modelType | null = await query;
+    if (!documents) { return next(new ApiErrors('Document not fount', 404)) }
+    res.status(200).json({ data: documents })
+  })
 
 export const createOne=<modelType>(model:Model<any>)=>
     asyncHandler(async(req:Request,res:Response,next:NextFunction)=>{
@@ -40,17 +42,17 @@ export const createOne=<modelType>(model:Model<any>)=>
 
     })
 
-export const updateOne=<modelType>(model:Model<any>)=>
-    asyncHandler(async(req:Request,res:Response,next:NextFunction)=>{
-        const documents:modelType|null=await model.findByIdAndUpdate(req.params.id,req.body,{new:true})
-        if(!documents){return next(new ApiErrors(`Document not fount`,404))}
-        res.status(200).json({data:documents})
-
-    })
+export const updateOne = <modelType>(model: Model<any>) =>
+  asyncHandler(async (req: Request, res: Response, next: NextFunction) => {
+    const documents = await model.findByIdAndUpdate(req.params.id, req.body, { new: true });
+    if (!documents) { return next(new ApiErrors('Document not found', 404)) }
+    documents.save();
+    res.status(200).json({ data: documents })
+  })
 
 export const deleteOne=<modelType>(model:Model<any>)=>
     asyncHandler(async(req:Request,res:Response,next:NextFunction)=>{
-        const documents:modelType|null=await model.findByIdAndDelete(req.params.id)
+        const documents:modelType|null=await model.findOneAndDelete({_id:req.params.id})
         if(!documents){return next(new ApiErrors(`Document not fount`,404))}
         res.status(204).json()
 
