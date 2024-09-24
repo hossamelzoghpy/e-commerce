@@ -1,0 +1,39 @@
+<div class="mt-3 d-flex">
+  <div class="img-cover">
+    <img class="w-100 h-100" [src]="phoneImage" alt="phone">
+  </div>
+  <div class="w-50 p-2 ms-5">
+    <div class="w-75">
+      <h1 class="text-center mb-4">login</h1>
+      <form [formGroup]="loginForm" (ngSubmit)="login(loginForm)">
+        <div class="p-3">
+          <input formControlName="email" class="form-control" type="email" placeholder="email">
+          @if(loginForm.get('email')?.errors!==null&&loginForm.get('email')?.touched){
+          <div class="p-0 mt-3">
+            @if(loginForm.get('email')?.errors?.['required']){<p class="text-danger">Email Required</p>}
+            @if(loginForm.get('email')?.errors?.['email']){<p class="text-danger">invalid Email</p>}
+          </div>
+          }
+          @if(invalidLogin!==''){
+          <div class="text-danger mt-3">
+            <p>{{invalidLogin}}</p>
+          </div>
+          }
+        </div>
+        <div class="p-3">
+          <input formControlName="password" class="form-control" type="password" placeholder="password">
+          @if(loginForm.get('password')?.errors!==null&&loginForm.get('password')?.touched){
+          <div class="p-0 mt-3">
+            @if(loginForm.get('password')?.errors?.['required']){<p class="text-danger">Password Required</p>}
+            @if(loginForm.get('password')?.errors?.['minlength']||loginForm.get('password')?.errors?.['maxlength'])
+            {<p class="text-danger">Password length 6,20</p>}
+          </div>
+          }
+        </div>
+        <br>
+        <button [disabled]="loginForm.invalid" class="btn btn-danger form-control w-25 m-auto p-2">login</button>
+        <a routerLink="/forgetPassword" class="btn btn-outline-danger mx-5">forget password</a>
+      </form>
+    </div>
+  </div>
+</div>
