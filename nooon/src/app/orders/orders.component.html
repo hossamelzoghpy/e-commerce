@@ -1,0 +1,51 @@
+@if(orders.length>0){
+<div class="container">
+  <h2 class="text-center my-5">My Orders</h2>
+  <hr class="my-3">
+  <table class="w-100">
+    <thead>
+      <tr class="border-bottom">
+        <th>products</th>
+        <th>Delivered</th>
+        <th>Paid</th>
+        <th>Payment Method</th>
+        <th>Total Price</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for(order of orders; track order._id){
+      <tr class="m-5 border-bottom">
+        <td>
+          @for(item of order.items; track item._id){
+          <img class="mx-3" width="50px" [src]="productImage+item?.product?.cover"
+            [alt]="item?.product?.name">{{item?.product?.name}} | Quantity {{item.quantity}}
+          <br>
+          <br>
+          }
+        </td>
+        <td>@if(order.isDelivered){yes}@else{No}</td>
+        <td>@if(order.isPaid){yes}@else{No}</td>
+        <td>{{order.paymentMethod}}</td>
+        <td>{{order.totalPrice|currency:'EUR'}}</td>
+      </tr>
+      }
+    </tbody>
+  </table>
+</div>
+
+<div class="container m-auto mt-5 w-25">
+  <ul class="pagination">
+    <li (click)="changePage(1)" class="page-item"><button class="page-link">First</button></li>
+    @if(pagination.prev){
+    <li (click)="changePage(pagination.prev)" class="page-item"><button class="page-link">{{pagination.prev}}</button>
+    </li>
+    }
+    <li class="page-item"><button disabled class="page-link">{{pagination.currentPage}}</button></li>
+    @if(pagination.next){
+    <li (click)="changePage(pagination.next)" class="page-item"><button class="page-link">{{pagination.next}}</button>
+    </li>
+    }
+    <li (click)="changePage(pagination.totalPages!)" class="page-item"><button class="page-link">Last</button></li>
+  </ul>
+</div>
+}
