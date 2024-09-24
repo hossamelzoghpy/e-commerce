@@ -1,6 +1,9 @@
 # nooon shop
+### The nooon folder is the client-server
+### To see the source code server-side you can get it from the E-Commerce folder
+### Ignore the test folder
+This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.2.2 [Nodejs](https://nodejs.org/en) version 22.9.0 and [Express ](https://expressjs.com) and [Moongose](https://mongoosejs.com)
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.2.2.
 
 ## Development server
 
