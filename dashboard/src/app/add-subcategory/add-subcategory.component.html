@@ -1,0 +1,32 @@
+<br><br><br>
+<div class="w-50 mt-5 m-auto shadow p-4">
+  <h1 class="text-center">Add Subcategory</h1>
+  <form [formGroup]="subcategoryForm" (ngSubmit)="addSubcategory(subcategoryForm)">
+    <div class="p-3">
+      <input formControlName="name" class="form-control" type="name" placeholder="subcategory name">
+      @if(subcategoryForm.get('name')?.errors!==null&&subcategoryForm.get('name')?.touched){
+      <div class="p-0 mt-3">
+        @if(subcategoryForm.get('name')?.errors?.['required']){<p class="text-danger"> subcategory name Required</p>}
+      </div>
+      }
+    </div>
+    <div class="p-3">
+      <select formControlName="category" class="form-select" aria-label="Default select example">
+        <option disabled selected>choose category</option>
+        @for(category of categories; track category._id){
+        <option [value]="category._id">{{category.name}}</option>
+        }
+      </select>
+      <!-- @if(subcategoryError!==''){
+      <div class="text-danger mt-3">
+        <p>{{subcategoryError}}</p>
+      </div>
+      } -->
+    </div>
+    <div class="mt-3">
+      <button class="btn btn-primary mx-3 ">Create</button>
+      <a routerLink="/subcategories" class="btn btn-danger">Cancel</a>
+    </div>
+  </form>
+</div>
+<br><br><br>

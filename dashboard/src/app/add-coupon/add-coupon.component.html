@@ -1,0 +1,40 @@
+<br><br><br>
+<div class="w-50 mt-5 m-auto shadow p-4">
+  <h1 class="text-center">Add Coupon</h1>
+  <form [formGroup]="couponForm" (ngSubmit)="createCoupon(couponForm)">
+    <div class="p-3">
+      <input formControlName="name" class="form-control" type="name" placeholder="coupon name">
+      @if(couponForm.get('name')?.errors!==null&&couponForm.get('name')?.touched){
+      <div class="p-0 mt-3">
+        @if(couponForm.get('name')?.errors?.['required']){<p class="text-danger"> coupon name Required</p>}
+      </div>
+      }
+    </div>
+    <div class="p-3">
+      <input formControlName="discount" class="form-control" type="number" placeholder="discount">
+      @if(couponForm.get('discount')?.errors!==null&&couponForm.get('discount')?.touched){
+      <div class="p-0 mt-3">
+        @if(couponForm.get('discount')?.errors?.['required']){<p class="text-danger"> coupon discount Required</p>}
+      </div>
+      }
+    </div>
+    <div class="p-3">
+      <input formControlName="expireTime" class="form-control" type="date" placeholder="Expire Time">
+      @if(couponForm.get('expireTime')?.errors!==null&&couponForm.get('expireTime')?.touched){
+      <div class="p-0 mt-3">
+        @if(couponForm.get('expireTime')?.errors?.['required']){<p class="text-danger"> coupon expire Time Required</p>}
+      </div>
+      }
+      <!-- @if(couponError!==''){
+      <div class="text-danger mt-3">
+        <p>{{couponError}}</p>
+      </div>
+      } -->
+    </div>
+    <div class="mt-3">
+      <button [disabled]="couponForm.invalid" class="btn btn-primary mx-3 ">Create</button>
+      <a routerLink="/coupons" class="btn btn-danger">Cancel</a>
+    </div>
+  </form>
+</div>
+<br><br><br>

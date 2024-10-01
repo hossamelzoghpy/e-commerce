@@ -1,0 +1,51 @@
+<div class="w-50 m-auto">
+  <h2 class="text-center my-5">All Categories</h2>
+  <hr class="my-3">
+  <div class="d-flex justify-content-between">
+    <a class="btn btn-primary" routerLink="create">Create Category</a>
+    <input (keyup)="searchData(searchInput.value)" #searchInput class="form-control me-2 w-25" type="search"
+      placeholder="Search" aria-label="Search">
+  </div>
+  <hr class="my-3">
+  <table class="w-100">
+    <thead>
+      <tr class="border-bottom">
+        <th>#</th>
+        <th>ID</th>
+        <th>Category Name</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      @for(category of categories; track category._id){
+      <tr class="m-5 border-bottom">
+        <td>{{$index + 1}}</td>
+        <td>{{category?._id|slice:-4}}</td>
+        <td>{{category?.name}}</td>
+        <td>
+          <a [routerLink]="[category._id,'update']"
+            class="btn btn-primary btn-sm my-3 rounded-3 mx-3">Update</a>
+          <button (click)="deleteCategory(category._id)" class="btn btn-danger btn-sm rounded-3">Delete</button>
+        </td>
+      </tr>
+      }
+      @empty { <h1>empty</h1> }
+    </tbody>
+  </table>
+</div>
+
+<div class="container m-auto mt-5 w-25">
+  <ul class="pagination">
+    <li (click)="changePage(1)" class="page-item"><button class="page-link">First</button></li>
+    @if(pagination.prev){
+    <li (click)="changePage(pagination.prev)" class="page-item"><button class="page-link">{{pagination.prev}}</button>
+    </li>
+    }
+    <li class="page-item"><button disabled class="page-link">{{pagination.currentPage}}</button></li>
+    @if(pagination.next){
+    <li (click)="changePage(pagination.next)" class="page-item"><button class="page-link">{{pagination.next}}</button>
+    </li>
+    }
+    <li (click)="changePage(pagination.totalPages!)" class="page-item"><button class="page-link">Last</button></li>
+  </ul>
+</div>

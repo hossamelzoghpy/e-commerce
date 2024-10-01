@@ -1,0 +1,53 @@
+<br><br><br>
+<div class="w-50 mt-5 m-auto shadow p-4">
+  <h1 class="text-center">Add Product</h1>
+  <div>
+    <div class="p-3">
+      <input class="form-control" type="name" (keyup)="this.productName=name.value" #name placeholder="product name">
+    </div>
+    <div class="form-floating p-3">
+      <textarea class="form-control" (keyup)="this.productDescription=description.value" #description
+        placeholder="Leave a comment here" id="floatingTextarea"></textarea>
+      <label for="floatingTextarea">Description</label>
+    </div>
+    <div class="p-3">
+      <select (change)="loadSubcategories(category.value)" #category class="form-select"
+        aria-label="Default select example">
+        <option disabled selected>choose category</option>
+        @for(category of categories; track category._id){
+        <option [value]="category._id">{{category.name}}</option>
+        }
+      </select>
+    </div>
+    <div class="p-3">
+      <select class="form-select" (change)="this.productSubcategory=subcategory.value" #subcategory
+        aria-label="Default select example">
+        <option disabled selected>choose subcategory</option>
+        @for(subcategory of subcategories; track subcategory._id){
+        <option [value]="subcategory._id">{{subcategory.name}}</option>
+        }
+      </select>
+    </div>
+    <div class="p-3 d-flex justify-content-around">
+      <input class="form-control w-25" type="number" (keyup)="this.productPrice=price.value" #price
+        placeholder="product price">
+      <input class="form-control w-25" type="number" (keyup)="this.productQuantity=quantity.value" #quantity
+        placeholder="product quantity">
+    </div>
+    <div class="p-3 d-flex justify-content-around">
+      <div class="w-25">
+        <label class="mb-2" for=""> Product Cover</label>
+        <input class="form-control" (change)="getCover($event)" type="file" accept="image/*">
+      </div>
+      <div class="w-25">
+        <label class="mb-2" for="">Product Images</label>
+        <input class="form-control" (change)="getImages($event)" type="file" accept="image/*" multiple>
+      </div>
+    </div>
+    <div class="mt-3">
+      <button (click)="createProduct()" class="btn btn-primary mx-3 ">Create</button>
+      <a routerLink="/products" class="btn btn-danger">Cancel</a>
+    </div>
+  </div>
+</div>
+<br><br><br>

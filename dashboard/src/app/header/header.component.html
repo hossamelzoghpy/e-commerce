@@ -1,0 +1,98 @@
+<!--<div class="collapse" id="navbarToggleExternalContent">
+    <div class="bg-dark p-4">
+        <h5 class="text-white h4">Menu Bar</h5>
+        <span class="text-muted"></span>
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0 text-white">
+            <li class="nav-item">
+                <a class="nav-link" aria-current="page" routerLink='/home' routerLinkActive="active" ariaCurrentWhenActive="page">Home</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" aria-current="page" routerLink='/categories' routerLinkActive="active" ariaCurrentWhenActive="page">Categories</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" aria-current="page" routerLink='/subcategories' routerLinkActive="active" ariaCurrentWhenActive="page">Subcategories</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" aria-current="page" routerLink='/products' routerLinkActive="active" ariaCurrentWhenActive="page">Products</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" aria-current="page" routerLink='/coupons' routerLinkActive="active" ariaCurrentWhenActive="page">Coupons</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" aria-current="page" routerLink='/orders' routerLinkActive="active" ariaCurrentWhenActive="page">Orders</a>
+            </li>
+            @if(user.role==='manager'){
+            <li class="nav-item">
+                <a class="nav-link" aria-current="page" routerLink='/users' routerLinkActive="active" ariaCurrentWhenActive="page">Users</a>
+            </li>
+            }
+            <li class="nav-item">
+                <a class="nav-link" aria-current="page" routerLink='/profile' routerLinkActive="active" ariaCurrentWhenActive="page">Profile</a>
+            </li>
+            <li class="nav-item">
+                <button (click)="logout()" class="nav-link" aria-current="page" routerLinkActive="active" ariaCurrentWhenActive="page">logout</button>
+            </li>
+        </ul>
+    </div>
+</div>
+-->
+<nav class="navbar navbar-dark bg-dark mb-4 ">
+    <div class="container-fluid ">
+        <a class="navbar-brand" href="#">
+            <img src="icon.png" width="20px" height="20px"> Nooon</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+        <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+            <div class="offcanvas-header">
+                <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Menu</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+            </div>
+            <div class="offcanvas-body bg-dark">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0 text-white">
+                    <li class="nav-item">
+                        <a class="nav-link" aria-current="page" routerLink='/home' routerLinkActive="active" ariaCurrentWhenActive="page">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" aria-current="page" routerLink='/categories' routerLinkActive="active" ariaCurrentWhenActive="page">Categories</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" aria-current="page" routerLink='/subcategories' routerLinkActive="active" ariaCurrentWhenActive="page">Subcategories</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" aria-current="page" routerLink='/products' routerLinkActive="active" ariaCurrentWhenActive="page">Products</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" aria-current="page" routerLink='/coupons' routerLinkActive="active" ariaCurrentWhenActive="page">Coupons</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" aria-current="page" routerLink='/orders' routerLinkActive="active" ariaCurrentWhenActive="page">Orders</a>
+                    </li>
+                    @if(user.role==='manager'){
+                    <li class="nav-item">
+                        <a class="nav-link" aria-current="page" routerLink='/users' routerLinkActive="active" ariaCurrentWhenActive="page">Users</a>
+                    </li>
+                    }
+                    <li class="nav-item">
+                        <a class="nav-link" aria-current="page" routerLink='/profile' routerLinkActive="active" ariaCurrentWhenActive="page">Profile</a>
+                    </li>
+                    <li class="nav-item">
+                        <button (click)="logout()" class="nav-link" aria-current="page" routerLinkActive="active" ariaCurrentWhenActive="page">logout</button>
+                    </li>
+                </ul>
+
+                <form class="d-flex mt-3" role="search">
+                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                    <button class="btn btn-outline-success" type="submit">Search</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</nav>
+<!--<nav class="navbar navbar-dark bg-dark">
+    <div class="container-fluid">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    </div>
+    </nav>-->
