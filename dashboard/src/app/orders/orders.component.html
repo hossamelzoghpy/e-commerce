@@ -1,0 +1,74 @@
+<div class="p-3 m-auto">
+  <h2 class="text-center my-5">All Orders</h2>
+  <hr class="my-3">
+  <div class="d-flex justify-content-between">
+    <input (change)="searchData(searchInput.value)" #searchInput class="form-control me-2 w-25" type="search"
+      placeholder="Search" aria-label="Search">
+  </div>
+  <hr class="my-3">
+  <table class="w-100">
+    <thead>
+      <tr class="border-bottom">
+        <th>#</th>
+        <th>ID</th>
+        <th>user</th>
+        <th>Products</th>
+        <th>Payment</th>
+        <th>Delivered</th>
+        <th>Deliver time</th>
+        <th>Paid</th>
+        <th>Pay time</th>
+        <th>tax price</th>
+        <th>total price</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      @for(order of orders; track order._id){
+      <tr class="m-5 border-bottom">
+        <td>{{$index + 1}}</td>
+        <td>{{order?._id|slice:-4}}</td>
+        <td>{{order?.user?.name}}</td>
+        <td>
+          @for(item of order.items; track item._id){
+          <img class="mx-3" width="50px" [src]="productsImage+item?.product?.cover"
+            [alt]="item?.product?.name">{{item?.product?.name}}
+          <br><br>
+          }
+        </td>
+        <td>{{order?.paymentMethod}}</td>
+        <td>@if(order?.isDelivered){yes}@else{No}</td>
+        <td>@if(order?.deliveredAt){{{order?.deliveredAt|date}}}@else{-----}</td>
+        <td>@if(order?.isPaid){yes}@else{No}</td>
+        <td>@if(order?.paidAt){{{order?.paidAt|date}}}@else{-----}</td>
+        <td>{{order?.taxPrice|currency}}</td>
+        <td>{{order?.totalPrice|currency}}</td>
+        <td>
+          <button [disabled]="order.isDelivered" (click)="updateDelivered(order._id)"
+            class="btn btn-primary mx-3 btn-sm rounded-3">Deliver
+            Order</button>
+          <button [disabled]="order.isPaid" (click)="updatePaid(order._id)" class="btn btn-primary btn-sm rounded-3">Pay
+            Order</button>
+        </td>
+      </tr>
+      }
+      @empty { <h1>empty</h1> }
+    </tbody>
+  </table>
+</div>
+
+<div class="container m-auto mt-5 w-25">
+  <ul class="pagination">
+    <li (click)="changePage(1)" class="page-item"><button class="page-link">First</button></li>
+    @if(pagination.prev){
+    <li (click)="changePage(pagination.prev)" class="page-item"><button class="page-link">{{pagination.prev}}</button>
+    </li>
+    }
+    <li class="page-item"><button disabled class="page-link">{{pagination.currentPage}}</button></li>
+    @if(pagination.next){
+    <li (click)="changePage(pagination.next)" class="page-item"><button class="page-link">{{pagination.next}}</button>
+    </li>
+    }
+    <li (click)="changePage(pagination.totalPages!)" class="page-item"><button class="page-link">Last</button></li>
+  </ul>
+</div>

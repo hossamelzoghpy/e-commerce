@@ -1,0 +1,75 @@
+<div class="container m-5">
+  <h1 class="text-center my-5">Profile Information</h1>
+  <div class="w-50 m-auto shadow p-2 rounded-3 d-flex justify-content-center align-items-center">
+    <div class="w-25">
+      <img class="w-75 rounded-4" [src]="userImage+user.image" alt="userData.name">
+    </div>
+    <div>
+      <div class="w-75 m-auto my-4">
+        <label for="">Email : {{user.email}}</label>
+      </div>
+      <div class="w-75 m-auto my-4">
+        <input class="form-control" type="text" placeholder="name" (keyup)="(this.userName=name.value)" #name
+          [value]="user.name">
+      </div>
+      <div class="w-75 m-auto my-4">
+        <input class="form-control" (change)="getFile($event)" type="file" accept="image/*">
+      </div>
+      <div class="w-75 m-auto my-4">
+        <button (click)="updateLoggedUser()" class="btn btn-danger">Update Data</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<hr class="my-5">
+
+<div class="container m-5">
+  <h1 class="text-center my-5">Change Password</h1>
+  <form [formGroup]="passwordForm" (ngSubmit)="changeUserPassword(passwordForm)"
+    class="w-50 m-auto shadow p-2 rounded-3">
+    <div class="w-75 m-auto my-4">
+      <input formControlName="currentPassword" class="form-control" type="password" placeholder="current password">
+      @if(passwordForm.get('currentPassword')?.errors!==null&&passwordForm.get('currentPassword')?.touched&&currentPasswordError===''){
+      <div class="text-danger mt-3">
+        @if(passwordForm.get('currentPassword')?.errors?.['required']){<p>current password required</p> }
+        @if(passwordForm.get('currentPassword')?.errors?.['minlength']||passwordForm.get('currentPassword')?.errors?.['maxlength'])
+        {<p>current password 6,20</p> }
+      </div>
+      }
+      @if(currentPasswordError!==''){
+      <div class="text-danger mt-3">
+        <p>{{currentPasswordError}}</p>
+      </div>
+      }
+    </div>
+    <div class="w-75 m-auto my-4">
+      <input formControlName="password" class="form-control" type="password" placeholder="password">
+      @if(passwordForm.get('password')?.errors!==null&&passwordForm.get('password')?.touched){
+      <div class="text-danger mt-3">
+        @if(passwordForm.get('password')?.errors?.['required']){<p>password required</p> }
+        @if(passwordForm.get('password')?.errors?.['minlength']||passwordForm.get('password')?.errors?.['maxlength'])
+        {<p>password 6,20</p> }
+      </div>
+      }
+    </div>
+    <div class="w-75 m-auto my-4">
+      <input formControlName="confirmPassword" class="form-control" type="password" placeholder="confirm password">
+      @if(passwordForm.get('confirmPassword')?.errors!==null&&passwordForm.get('confirmPassword')?.touched&&passwordError===''){
+      <div class="text-danger mt-3">
+        @if(passwordForm.get('confirmPassword')?.errors?.['required']){<p>password required</p> }
+        @if(passwordForm.get('confirmPassword')?.errors?.['minlength']||passwordForm.get('confirmPassword')?.errors?.['maxlength'])
+        {<p>confirm password 6,20</p> }
+      </div>
+      }
+      @if(passwordError!==''){
+      <div class="text-danger mt-3">
+        <p>{{passwordError}}</p>
+      </div>
+      }
+    </div>
+    <div class="w-75 m-auto my-4">
+      <button [disabled]="passwordForm.invalid" class="btn btn-danger">Update Password</button>
+    </div>
+  </form>
+</div>
